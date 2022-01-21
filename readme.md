@@ -1,3 +1,4 @@
+Cara Untuk menjalankan di local :
 1. Install laravel versi 5.8
 2. import database "laravel_olshop"
 3. ketikkan perintah php artisan migrate
