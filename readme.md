@@ -1,3 +1,9 @@
+Cara Untuk menjalankan di local :
+1. Install laravel versi 5.8
+2. import database "laravel_olshop"
+3. ketikkan perintah php artisan migrate
+4. terakhir ketikan perintah php artisan serve
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
