@@ -2,9 +2,9 @@
 @section('content')
 <div class="container">
    <div class="row justify-content-center">
-      <!-- <div class="col-md-12 mb-4">
-         <img src="{{ url('images/logo.png')}}" class="rounded mx-auto d-block" width="500" alt="">
-      </div> -->
+      <div class="col-md-12 mb-4">
+         <img src="{{ url('uploads/logo.png')}}" class="rounded mx-auto d-block" width="100x " alt="">
+      </div>
       @foreach($barangs as $barang)
         <!-- {{ $barang }};die; -->
       <div class="col-md-4">

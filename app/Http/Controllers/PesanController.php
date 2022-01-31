@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Barang;
 use App\Pesanan;
 use App\PesananDetail;
+use App\User;
 use Auth;
+// use Alert;
+// use SweetAlert;
+// use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -91,10 +95,44 @@ class PesanController extends Controller
         $pesanan->jumlah_harga = $pesanan->jumlah_harga + $barang->harga*$request->jumlah_pesan;
         $pesanan->update();
 
-        return redirect('home'); 
+        // Alert::success('Success Message', 'Optional Title');
+        // Alert::success('Good job!')->persistent("Close");
+        // Alert::success('Pesanan Sukses Masuk Keranjang', 'Success'); 
+        // Alert::success('Success Message', 'Optional Title');\
+        // Alert()->success('Pembelian Berhasil', 'Success');  
+
+        return redirect('/home'); 
 
     }
+ 
+    public function check_out()
+    {
+        // $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();  
+        // $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+        // // dd($pesanan);
+        // return view('pesan.check_out', compact('pesanan','pesanan_details'));
+        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $pesanan_details = [];
+           if(!empty($pesanan))
+           {
+               $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+   
+           }
+           
+           return view('pesan.check_out', compact('pesanan', 'pesanan_details'));
+    }
 
+    public function delete($id)
+    {
+        $pesanan_detail = PesananDetail::where('id',$id)->first();
+        $pesanan = Pesanan::where('id', $pesanan_detail->pesanan_id)->first();
+        $pesanan->jumlah_harga = $pesanan->jumlah_harga - $pesanan_detail->jumlah_harga;
+        $pesanan->update();
+
+        $pesanan_detail->delete();
+
+        return redirect('check-out');
+    }
   
 
    

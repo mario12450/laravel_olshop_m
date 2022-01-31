@@ -19,7 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- font awesome -->
-    <link rel="stylesheet" href="{{ asset('css/all.css')}}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css')}}">
+
+  
 
 </head>
 <body>
@@ -42,7 +44,22 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
+                        <!-- Authentication Links --> 
+                        <li class="nav-item">
+                            <?php
+                            $pesanan_utama = \App\Pesanan::where('user_id',Auth::user()->id)->where('status',0)->first();
+                            $notif = \App\PesananDetail::where('pesanan_id',$pesanan_utama->id)->count();                            
+                            ?>
+                            <a class="nav-link" href="{{ url('check-out') }}">
+                                <i class="fas fa-cart-plus">
+                                    <span class="badge badge-danger">
+                                    {{ $notif }}
+                                    <!-- Checkout -->
+                                    </span>                                    
+                                </i>
+                            </a>
+                        </li>
+
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -54,8 +71,8 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a id="navbarDropdown" style="font-size:15px;font-style:italic;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                   {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -78,7 +95,14 @@
 
         <main class="py-4">
             @yield('content')
-        </main>
+        </main>        
     </div>
-</body>
+
+    <!-- <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    @include('sweetalert::alert') -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
+ 
+</body> 
 </html>
+ 
